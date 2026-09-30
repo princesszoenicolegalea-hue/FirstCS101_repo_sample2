@@ -1,0 +1,122 @@
+---
+title: "exercise 2"
+author: "Z Galea"
+date: "2026-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+---
+title: "RExercise#2_Galea"
+author: "Zoe"
+date: "2026-09-30"
+output: html_document
+---
+
+{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+## Part A - Arithmetic Operations
+{r}
+a <- 17
+b <- 5
+a + b
+a - b
+a * b
+a / b
+
+
+{r}
+a %% b
+a %/% b
+
+
+{r}
+2 ^ 10
+
+## Question 1
+-They relate to each other because they all divide the 17 by 5 and give back a remainder
+
+## Question 2
+-For 10%%3 my answer is 1 and i am correct but for 10%/%3 i did not get the correct answer because I thought they would have the same output. 
+
+{r}
+10%%3
+10%/%3
+
+## Part B - Basic Data Types
+{r}
+x <- 42
+y <- 42L        
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+{r}
+x <- 42
+y <- 42L        
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+
+{r}
+x <- 42
+y <- 42L        
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+
+
+## Question 3
+-They give different answers because of the letter "L" which usually refers to a suffix that force the R program to store it as an integer.
+
+## Question 4
+-THe difference between the three is that they all have different purpose, because typeof() uses the internal storage, mode() uses the S-language compatibility and class() is for Object-oriented types.
+
+## Part C - Type Conversion
+
+{r}
+num_string <- "123"
+num_value <- as.numeric(num_string)
+typeof (num_value)
+class(num_value)
+mode(num_value)
+num_value <- as.integer(num_string)
+num_value <- as.character(num_string)
+num_value <- as.logical(num_string)
