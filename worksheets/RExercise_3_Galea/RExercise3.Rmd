@@ -1,0 +1,97 @@
+---
+title: "Exercise3"
+author: "Z Galea"
+date: "2026-10-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Part A
+```{r}
+vector_scores<- c(88, 92, 79, 95, 84)
+vector_subjects<- c("Math", "Science", "English", "History", "PE")
+
+odds<- seq(1, 19, by=2)
+odds
+
+evenly_spaced <- seq(0, 1, length.out = 5)
+evenly_spaced
+
+A <- rep("A", 4)
+A
+B <- rep(c("A", "B"), each = 2)
+B
+C <- rep(c("A", "B"), times = 2)
+C
+
+## Question 1
+vector_age<- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24, 33, 8)
+
+#A. How many data points?
+length(vector_age)
+
+#B. Find the reciprocal of age
+1 / vector_age
+
+#C. Assign also new_age <-c(age, o, age). what happens to new_age?
+new_age <- c(vector_age, 0, vector_age)
+#it combines the age,  the number 0, and age again into one singular vector.
+
+#D. Find the minimum and the maximum value of age.
+min(vector_age)
+max(vector_age)
+
+##Question 2 rep(c("A","B"), each = 2) and rep(c("A","B"), times = 2) both produce a vector of length 4, but with different element orders.
+#explain in your own words
+
+##each = 2: Repeats each individual element of the vector a specified number of times consecutively before moving on to the next element. For c("A", "B"), it repeats "A" twice, then "B" twice, resulting in "A", "A", "B", "B".
+
+## times = 2: Repeats the entire vector as a whole the specified number of times. For c("A", "B"), it takes the complete sequence and duplicates it, resulting in "A", "B", "A", "B".
+
+##Question 3 Compare seq(1, 20, by = 2) with seq(1, 20, length.out = 5). What does each argument (by vs length.out) control, and when would you use one over the other in a real analysis?
+#- the by controls the exact distance/increment between consecutive elements in the vector, meanwhile the length.out controls the total amount of items the final vector will contain,automatically calculating the step size to fit that exact count.
+
+## Question 4 
+vec_num <- seq(20, 60)
+
+mean(vec_num)
+
+sum(vec_num)
+
+length(vec_num)
+
+
+```
+```{r}
+## Part B
+
+grades <- c(88, 92, 79, 95, 84)
+names(grades) <- c("Math", "Science", "English", "History", "PE")
+
+grades [3]
+grades [c(1, 4)]
+names(grades) [c(2, 5)]
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
