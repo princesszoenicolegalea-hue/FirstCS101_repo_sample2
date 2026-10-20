@@ -13,7 +13,7 @@
 
 <meta name="date" content="2026-10-20" />
 
-<title>RExercise3</title>
+<title>Rexercise_3</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">RExercise3</h1>
+<h1 class="title toc-ignore">Rexercise_3</h1>
 <h4 class="author">Z Galea</h4>
 <h4 class="date">2026-10-20</h4>
 
@@ -358,79 +358,240 @@ display: none;
 
 
 <p><code>{r setup, include=FALSE} knitr::opts_chunk$set(echo = TRUE)</code>
-```{r} Part A — Creating Vectors: c(), seq(), rep() R # Create a numeric
-vector called scores containing: 88, 92, 79, 95, 84 scores &lt;- c(88,
-92, 79, 95, 84)</p>
-<div id="then-create-a-character-vector-called-subjects-containing-math-science-english-history-pe" class="section level1">
-<h1>Then create a character vector called subjects containing: “Math”,
-“Science”, “English”, “History”, “PE”</h1>
-<p>subjects &lt;- c(“Math”, “Science”, “English”, “History”, “PE”) R #
-Use seq() to create a vector called odds containing odd numbers from 1
-to 19 (using the “by” argument) odds &lt;- seq(1, 19, by = 2)</p>
+## Part A ```{r} vector_scores&lt;- c(88, 92, 79, 95, 84)
+vector_subjects&lt;- c(“Math”, “Science”, “English”, “History”,
+“PE”)</p>
+<p>odds&lt;- seq(1, 19, by=2) odds</p>
+<p>evenly_spaced &lt;- seq(0, 1, length.out = 5) evenly_spaced</p>
+<p>A &lt;- rep(“A”, 4) A B &lt;- rep(c(“A”, “B”), each = 2) B C &lt;-
+rep(c(“A”, “B”), times = 2) C</p>
+<div id="question-1" class="section level2">
+<h2>Question 1</h2>
+<p>vector_age&lt;- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27,
+22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35,
+24, 33, 8)</p>
+<p>#A. How many data points? length(vector_age)</p>
+<p>#B. Find the reciprocal of age 1 / vector_age</p>
+<p>#C. Assign also new_age &lt;-c(age, o, age). what happens to new_age?
+new_age &lt;- c(vector_age, 0, vector_age) #it combines the age, the
+number 0, and age again into one singular vector.</p>
+<p>#D. Find the minimum and the maximum value of age. min(vector_age)
+max(vector_age)</p>
+<p>##Question 2 rep(c(“A”,“B”), each = 2) and rep(c(“A”,“B”), times = 2)
+both produce a vector of length 4, but with different element orders.
+#explain in your own words</p>
+<p>##each = 2: Repeats each individual element of the vector a specified
+number of times consecutively before moving on to the next element. For
+c(“A”, “B”), it repeats “A” twice, then “B” twice, resulting in “A”,
+“A”, “B”, “B”.</p>
 </div>
-<div id="use-seq-with-length.out-to-create-a-vector-of-exactly-5-evenly-spaced-numbers-between-0-and-1" class="section level1">
-<h1>Use seq() with length.out to create a vector of exactly 5 evenly
-spaced numbers between 0 and 1</h1>
-<p>spaced_nums &lt;- seq(0, 1, length.out = 5) R # Use rep() to create a
-vector that repeats the value “A” 4 times rep_a &lt;- rep(“A”, 4)</p>
+<div id="times-2-repeats-the-entire-vector-as-a-whole-the-specified-number-of-times.-for-ca-b-it-takes-the-complete-sequence-and-duplicates-it-resulting-in-a-b-a-b." class="section level2">
+<h2>times = 2: Repeats the entire vector as a whole the specified number
+of times. For c(“A”, “B”), it takes the complete sequence and duplicates
+it, resulting in “A”, “B”, “A”, “B”.</h2>
+<p>##Question 3 Compare seq(1, 20, by = 2) with seq(1, 20, length.out =
+5). What does each argument (by vs length.out) control, and when would
+you use one over the other in a real analysis? #- the by controls the
+exact distance/increment between consecutive elements in the vector,
+meanwhile the length.out controls the total amount of items the final
+vector will contain,automatically calculating the step size to fit that
+exact count.</p>
 </div>
-<div id="use-rep-with-the-each-argument-to-turn-ca-b-into-a-a-b-b" class="section level1">
-<h1>Use rep() with the “each” argument to turn c(“A”, “B”) into “A” “A”
-“B” “B”</h1>
-<p>rep_each &lt;- rep(c(“A”, “B”), each = 2)</p>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>vec_num &lt;- seq(20, 60)</p>
+<p>mean(vec_num)</p>
+<p>sum(vec_num)</p>
+<p>length(vec_num)</p>
+<pre><code>```{r}
+## Part B
+
+grades &lt;- c(88, 92, 79, 95, 84)
+names(grades) &lt;- c(&quot;Math&quot;, &quot;Science&quot;, &quot;English&quot;, &quot;History&quot;, &quot;PE&quot;)
+
+grades [3]
+grades [c(1, 4)]
+names(grades) [c(2, 5)]
+
+
+# Return all elements of grades EXCEPT the 1st and 4th, using negative indexing
+grades[-c(1, 4)]
+
+# Returns only the grades that are greater than or equal to 85
+filtered_grades &lt;- grades[grades &gt;= 85]
+
+#Question #5: Indexing Types
+#-Negative Indexing Scenario (grades[-1]):
+
+#Situation: Imagine you have a time-series vector of daily temperature readings where the first entry is a corrupted sensor calibration test or an outlier timestamp you need to drop. Negative indexing is ideal when you know the exact position of the element you want to exclude (e.g., dropping the first row or a specific metadata column by index position).
+
+#Logical Indexing Scenario (grades[grades &gt;= 85]):
+
+#Question #6: Out-of-Bounds Indexing
+#-Observation: If you run grades[10] on a vector that has fewer than 10 elements, R returns NA (Not Available) instead of throwing an error.
+
+##Question #7: Filtering Integers
+# R Code
+filtered_numbers &lt;- Filter(function(i) { all(i %% c(3, 5, 7) != 0) }, seq(100))
+print(filtered_numbers)
+
+##Output
+#[1]  1  2  4  8 11 13 16 17 19 22 23 26 29 31 32 34 37 38 41 43 44 46 47 52 #-[25] 53 58 59 61 62 64 67 68 71 73 74 76 79 82 83 86 88 89 92 94 97 98
+</code></pre>
+<p>```{r} ##Part C #1 x &lt;- c(1, 2, 3, 4) y &lt;- c(10, 20, 30,
+40)</p>
 </div>
-<div id="use-rep-with-the-times-argument-to-turn-ca-b-into-a-b-a-b" class="section level1">
-<h1>Use rep() with the “times” argument to turn c(“A”, “B”) into “A” “B”
-“A” “B”</h1>
-<p>rep_times &lt;- rep(c(“A”, “B”), times = 2) Question #1: Set up a
-vector named age, consisting of 15, 28, 32, 36, 27, 18, 52, 39, 42, 29,
-35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53,
-41, 51, 35, 24, 33, 8.</p>
-<p>R age &lt;- c(15, 28, 32, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22,
-37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 12, 42, 53, 41, 51, 35, 24,
-33, 8) How many data points?</p>
-<p>There are 34 data points in the age vector.</p>
-<p>Find the reciprocal of age?</p>
-<p>1 / age calculates the reciprocal for every element in the vector
-simultaneously, element-wise.</p>
-<p>#Assign also new_age &lt;- c(age, 0, age). What happens to
-new_age?</p>
-<p>##It creates a combined vector containing the original age values, a
-single inserted 0 in the middle, and then another complete copy of the
-age vector appended to the end, resulting in a total length of 69.</p>
-<ol start="4" style="list-style-type: lower-alpha">
-<li>Find the minimum and the maximum value of age.</li>
-</ol>
-<p>The minimum value (min(age)) is 8, and the maximum value (max(age))
-is 57.</p>
-<p>Question #2: rep(c(“A”,“B”), each = 2) and rep(c(“A”,“B”), times = 2)
-both produce a vector of length 4, but with different element
-orders.</p>
-<p>Explain in your own words the difference between each and times.</p>
-<p>The each argument repeats each individual element consecutively a
-specified number of times before moving on to the next element
-(resulting in “A” “A” “B” “B”), whereas the times argument repeats the
-entire vector sequence as a complete block multiple times in order
-(resulting in “A” “B” “A” “B”).</p>
-<p>##Question #3: Compare seq(1, 20, by = 2) with seq(1, 20, length.out
-= 5). What does each argument (by vs length.out) control, and when would
-you use one over the other in a real analysis?</p>
-<p>The by argument controls the fixed increment or step size between
-consecutive numbers in a sequence. The length.out argument dictates the
-total count of elements generated across the interval, automatically
-calculating the step size. You would use by when you need regular
-spacing (such as time intervals or step counts), and length.out when you
-need a fixed partition size across a range (such as breaking a dataset
-into 5 equal sample bins).</p>
-<p>Question #4: Generate a sequence for 20 to 60. Name the vector as
-vec_num</p>
-<p>R vec_num &lt;- 20:60 Get the mean for vec_num.</p>
-<p>R mean(vec_num) # Returns 40 Get the sum for vec_num.</p>
-<p>R sum(vec_num) # Returns 1640 d. How many data points are there in
-vec_num?</p>
-<p>R length(vec_num) # Returns 41</p>
-<pre><code>
-## R Markdown
+<div id="todo-add-x-and-y-element-wise-and-print-the-result" class="section level1">
+<h1>TODO: Add x and y element-wise, and print the result</h1>
+<p>x + y # Output: [1] 11 22 33 44</p>
+</div>
+<div id="todo-multiply-every-element-of-x-by-2" class="section level1">
+<h1>TODO: Multiply every element of x by 2</h1>
+<p>x * 2 # Output: [1] 2 4 6 8</p>
+<p>#2 z &lt;- c(1, 2, 3, 4, 5, 6) short &lt;- c(1, 0)</p>
+</div>
+<div id="todo-add-z-and-short-together-and-print-the-result." class="section level1">
+<h1>TODO: Add z and short together and print the result.</h1>
+<p>z + short # Output: [1] 2 2 4 4 6 6</p>
+<p>#4 fruits &lt;- c(“apple”, “banana”, “cherry”)</p>
+</div>
+<div id="todo-use-append-to-add-date-to-the-end-of-fruits" class="section level1">
+<h1>TODO: Use append() to add “date” to the end of fruits</h1>
+<p>fruits &lt;- append(fruits, “date”) print(fruits) # Output: [1]
+“apple” “banana” “cherry” “date”</p>
+</div>
+<div id="todo-use-append-with-the-after-argument-to-insert-kiwi-between-apple-and-banana" class="section level1">
+<h1>TODO: Use append() with the “after” argument to insert “kiwi”
+between “apple” and “banana”</h1>
+<p>fruits &lt;- append(fruits, “kiwi”, after = 1) print(fruits) #
+Output: [1] “apple” “kiwi” “banana” “cherry” “date”</p>
+<p>##Question #8: Explanation of the Recycling Rule #-When performing
+element-wise operations on vectors of unequal length, R automatically
+repeats (recycles) the shorter vector until its length matches the
+longer vector. In this case, short &lt;- c(1, 0) is repeated 3 times to
+become c(1, 0, 1, 0, 1, 0) so it can be added element-by-element to
+z.</p>
+<p>#Question #9: Silent Recycling vs. Warning Conditions z + c(1, 0, 1)
+# Output: [1] 2 2 4 5 5 7</p>
+<p>##2. Adding z (length 6) to c(1, 0, 1, 1) (length 4): z + c(1, 0, 1,
+1) # Output: [1] 2 2 4 5 6 6 ##-Silent Recycling: R recycles silently
+when the length of the longer vector is an exact multiple of the shorter
+vector’s length (e.g., <span class="math inline">\(6 \div 2 = 3\)</span>
+or <span class="math inline">\(6 \div 3 = 2\)</span>). The shorter
+vector repeats completely without getting cut off mid-cycle.</p>
+<p>##-Warning Message: R triggers a warning when the longer length is
+not a multiple of the shorter length (e.g., <span class="math inline">\(6 \div 4\)</span>). The shorter vector completes
+one full cycle (1, 0, 1, 1) and gets cut off mid-way (1, 0) to fill the
+remaining elements. R alerts you because this incomplete cycle often
+signals a logic error in your code.</p>
+<pre><code>```{r}
+##Part D
+#1. Creating the List
+
+# TODO: Create a list called student with these named elements
+student &lt;- list(
+  name = &quot;Maria Santos&quot;,
+  age = 20,
+  grades = c(88, 92, 79),
+  is_enrolled = TRUE
+)
+#2. Accessing with Single Brackets ([])
+
+# TODO: Access the &quot;grades&quot; element of student using single brackets -- then check its type with class()
+student[&quot;grades&quot;]
+class(student[&quot;grades&quot;])
+Output / Result:
+
+R
+#$grades
+#[1] 88 92 79
+
+#[1] &quot;list&quot;
+
+##3. Accessing with Double Brackets ([[]])
+
+# TODO: Access the &quot;grades&quot; element of student using double brackets -- then check its type with class()
+student[[&quot;grades&quot;]]
+class(student[[&quot;grades&quot;]])
+Output / Result:
+
+#Output
+#[1] 88 92 79
+#[1] &quot;numeric&quot;
+  
+## 4. Accessing with the $ Operator
+
+# TODO: Access the &quot;name&quot; element of student using the $ operator
+student$name
+Output / Result:
+
+#Outputt
+#[1] &quot;Maria Santos&quot;
+  
+##5. Extracting a Specific Element from a Nested Structure
+
+# TODO: From student, extract just the SECOND grade in the grades vector
+student$grades[2]
+# Alternatively: student[[&quot;grades&quot;]][2]
+Output / Result:
+
+#output
+#[1] 92
+  
+ #Question #10: Single vs. Double Brackets
+#student[&quot;grades&quot;]: Returns a sub-list (class is &quot;list&quot;). Single brackets ([]) subset while preserving the list container. student[[&quot;grades&quot;]]: Returns the raw vector (class is &quot;numeric&quot;). Double brackets ([[]]) unwrap the container to access the internal contents directly.
+
+#Question #11: Why Lists Need Two Brackets
+#Vectors are homogeneous (all elements share the same type), so [] is enough. Lists are heterogeneous and can hold mixed types or complex structures. R needs [] to slice sub-lists and [[]] to extract and work directly with the internal objects.</code></pre>
+<p>```{r} ##Part E</p>
+<p>#1. Print In-Stock Items Using Logical Indexing</p>
+<p>inventory &lt;- list( item = c(“Notebook”, “Pen”, “Eraser”), price =
+c(25.50, 10.00, 5.00), in_stock = c(TRUE, TRUE, FALSE) )</p>
+</div>
+<div id="todo-print-only-the-items-that-are-currently-in-stock" class="section level1">
+<h1>TODO: Print only the items that are currently in stock</h1>
+<p>inventory<span class="math inline">\(item[inventory\)</span>in_stock]</p>
+<p>##Output #[1] “Notebook” “Pen”</p>
+<p>##2. Adding a New Product Using append()</p>
+</div>
+<div id="todo-use-append-to-add-ruler-15.00-and-true-to-their-respective-vectors" class="section level1">
+<h1>TODO: Use append() to add “Ruler”, 15.00, and TRUE to their
+respective vectors</h1>
+<p>inventory<span class="math inline">\(item &lt;-
+append(inventory\)</span>item, “Ruler”) inventory<span class="math inline">\(price &lt;- append(inventory\)</span>price, 15.00)
+inventory<span class="math inline">\(in_stock &lt;-
+append(inventory\)</span>in_stock, TRUE)</p>
+</div>
+<div id="view-the-updated-inventory-list" class="section level1">
+<h1>View the updated inventory list</h1>
+<p>print(inventory) Output:</p>
+<p>#Output #$item #[1] “Notebook” “Pen” “Eraser” “Ruler”</p>
+<p>#$price #[1] 25.5 10.0 5.0 15.0</p>
+<p>#$in_stock #[1] TRUE TRUE FALSE TRUE</p>
+<p># Question #12: How Cross-Vector Logical Indexing Works #Evaluates
+Condition: inventory<span class="math inline">\(in_stock evaluates to
+the logical vector c(TRUE, TRUE, FALSE). Extracts Target:
+inventory\)</span>item extracts the character vector c(“Notebook”,
+“Pen”, “Eraser”). Applies Filter: R matches them position-by-position,
+keeping only the items where the corresponding logical value is TRUE.
+They work together because their order corresponds to the same
+items.</p>
+<p>#Question #13: Risks of Separate Vectors vs. Lists #Risks: If you
+sort, subset, or delete an element from one vector and forget to do the
+exact same operation to the others, the data instantly goes out of sync,
+causing silent logic bugs where prices or stock statuses map to the
+wrong items. Argument: Using a list (or data frame) keeps related data
+bound together as a single unit, ensuring that sorting or filtering
+applies uniformly across all attributes.</p>
+<p>##Conclusion #Vectors are homogeneous data structures that hold
+elements of a single data type, making them ideal for fast mathematical
+and logical operations. In contrast, lists are heterogeneous and can
+store a mixture of completely different data types, such as character
+strings, numbers, and even other lists. You should choose vectors when
+performing uniform calculations on a single kind of data, and choose
+lists when you need to group diverse, multi-type pieces of related
+information into a single container.</p>
+<pre><code>## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;http://rmarkdown.rstudio.com&gt;.
 
