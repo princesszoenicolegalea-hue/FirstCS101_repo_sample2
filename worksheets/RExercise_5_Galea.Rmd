@@ -1,0 +1,212 @@
+---
+title: "RExercise_5_Galea"
+author: "Z Galea"
+date: "2026-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+##Part A — Creating Matrices
+# 1. Create a 3x3 matrix called m1 containing numbers 1 to 9
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+print("Matrix m1:")
+print(m1)
+
+# 2. Create a second 3x3 matrix called m2 with byrow = TRUE
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print("Matrix m2:")
+print(m2)
+
+# 3. Create scores matrix with row and column names
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+print("Scores matrix:")
+print(scores)
+
+# Test Question #2 snippet (will throw a warning/recycling notice)
+# test_matrix <- matrix(1:8, nrow = 3, ncol = 3)
+
+##Question #2:
+#If you tried matrix(1:8, nrow = 3, ncol = 3) (only 8 numbers for 9 slots), what do you think would happen? Test it and explain the result, including any warning message.
+
+#-When testing matrix(1:8, nrow = 3, ncol = 3), R successfully creates a 3x3 matrix with 9 slots, but it outputs a warning stating that the data length is not a sub-multiple or multiple of the number of rows. To fill the 9th slot, R automatically recycles and wraps back around to reuse the very first value (1), resulting in the final element being a 1.)
+
+##Part B — Subsetting Matrices
+# Access single value in row 1, col 2
+val <- scores[1, 2]
+print(val)
+
+# Access entire first row
+row1 <- scores[1, ]
+print(row1)
+
+# Access entire "Ben" column
+col_ben <- scores[, "Ben"]
+print(col_ben)
+
+# Return values >= 90
+high_scores <- scores[scores >= 90]
+print(high_scores)
+
+# Check classes for Question #3
+class(scores[1, ])
+class(scores[, "Ben"])
+
+##Question #3:
+#scores[1, ] and scores[, "Ben"] both return a result, but one represents a row and the other a column. Run class() on each result. What data structure does R “downgrade” a single row/column of a matrix to, and why do you think R does this automatically?
+
+#-Running class() on both outputs reveals that R downgrades them from a 2D matrix structure to a simple atomic 1D vector. R does this automatically because a single extracted row or column contains elements of a single data type and can be handled more efficiently as a vector in subsequent mathematical operations.)
+
+##Question #4:
+#In the matrix-logical chunk, the row/column names disappeared from your result. Why does subsetting with a logical condition (scores >= 90) lose the 2D shape and names that scores[1, ] kept?
+
+#-Subsetting with a logical condition extracts values based on a boolean evaluation across the entire matrix rather than specific positional coordinates, flattening the result into an unstructured 1D vector. Because the output loses its rectangular 2D dimensions, row and column names are discarded since they cannot align to a flattened collection of elements.)
+
+##Part C — Matrix Properties and Operations
+# Report dimensions
+dim(scores)
+nrow(scores)
+ncol(scores)
+
+# Transpose scores
+scores_t <- t(scores)
+print("Transposed scores:")
+print(scores_t)
+dim(scores_t)
+
+# Element-wise and true matrix multiplication
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+
+# Element-wise addition and multiplication
+a + b
+a * b
+
+# True matrix multiplication
+a %*% b
+
+##Question #5:
+#a * b and a %% b both “multiply” the same two matrices but give different results. Explain the difference between element-wise multiplication and matrix multiplication in your own words.*
+
+#-Element-wise multiplication (a * b) multiplies corresponding individual cells directly against each other (e.g., element at [1,1] multiplies by [1,1]). In contrast, true matrix multiplication (a %*% b) computes the dot product of rows and columns according to linear algebra rules, where rows are multiplied across columns and summed together.)
+
+##Question #6:
+#t(scores) swaps rows and columns. Look at dim(scores) versus dim(scores_t). Why must the row/column names also swap positions when you transpose a matrix?
+
+#-Transposing a matrix inverts its axes, turning original rows into columns and original columns into rows. Consequently, row names must become column headers and column names must become row labels to accurately reflect the identity and orientation of the newly transposed data.)
+
+##Part D — cbind() and rbind()
+# 1. Add column "Dex" using cbind()
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+print("Scores V2 (with Dex):")
+print(scores_v2)
+
+# 2. Add row "Quiz3" using rbind()
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+print("Scores V3 (with Quiz3):")
+print(scores_v3)
+
+# Test Question #7 snippet (commented out to prevent knit error, uncomment to test error behavior)
+# cbind(scores, c(85, 91, 100))
+
+##Part D — cbind() and rbind()
+# 1. Add column "Dex" using cbind()
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+print("Scores V2 (with Dex):")
+print(scores_v2)
+
+# 2. Add row "Quiz3" using rbind()
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+print("Scores V3 (with Quiz3):")
+print(scores_v3)
+
+# Test Question #7 snippet (commented out to prevent knit error, uncomment to test error behavior)
+# cbind(scores, c(85, 91, 100))
+
+##Question #7:
+#What would happen if you tried cbind(scores, c(85, 91, 100)) — giving 3 values for a matrix that only has 2 rows? Test it, read the warning/error, and explain why cbind() and rbind() require matching dimensions.
+
+#-Attempting to bind 3 values to a 2-row matrix causes R to throw an error because the number of rows does not match. cbind() and rbind() require strict dimensional alignment so that new rows or columns match the exact width or height of the existing matrix structure without leaving dangling elements or unmatched slots.)
+
+#Question #8:
+#In what situation would you use rbind() instead of cbind() when updating a dataset over time? Give a concrete example (e.g., daily sales, weekly attendance) and explain your reasoning.
+
+#-You would use rbind() when appending new observations or records collected over time, such as adding daily store sales records for a new date. Since each new day represents a new row of data sharing the exact same set of attribute columns, stacking them vertically with rbind() preserves the tabular structure.)
+
+##Part E — Arrays: Creating and Subsetting
+# 1. Create a 2x3x2 array
+arr <- array(1:12, dim = c(2, 3, 2))
+print("Array arr:")
+print(arr)
+
+# 2. Access specific element and layer
+arr[1, 2, 2]
+arr[, , 1]
+
+# 3. Confirm dimensions
+dim(arr)
+
+##Question #9:
+#A matrix needs 2 indices (scores[row, col]) but an array needs 3 (arr[row, col, layer]). Using dim(arr), explain in your own words what each of the three numbers represents.
+
+#-In dim(arr), the first number represents the number of rows per slice, the second number represents the number of columns per slice, and the third number represents the total number of layers or 2D matrices stacked together in the third dimension.)
+
+##Question #10:
+#Give a real-world example of data that would naturally fit a 3D array structure... Explain why a single 2D matrix would not be enough.
+
+#-A store's monthly sales tracking data broken down by product categories (rows), sales regions (columns), and different months of the year (layers/3rd dimension) naturally fits a 3D array. A single 2D matrix would be insufficient because it can only capture two variables at once, forcing you to mash time periods together or lose temporal comparisons.)
+
+##Part F — Critical Thinking Challenge
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                   dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+# 1. Combine class_a and class_b into one matrix called all_students
+all_students <- rbind(class_a, class_b)
+print("All Students Matrix:")
+print(all_students)
+
+# 2. Compute each student's average score across Midterm and Final
+student_averages <- rowMeans(all_students)
+print("Student Averages:")
+print(student_averages)
+
+##Question #11:
+#Explain WHY you chose cbind() or rbind() in challenge-1. What clue in the data (shared row names vs. shared column names) told you which function was correct?
+
+#-I chose rbind() because class_a and class_b contain completely separate students (S1, S2 versus S3, S4) sharing the exact same test subject columns (Midterm, Final). Combining them requires stacking new rows rather than adding side-by-side columns.)
+
+##Question #12:
+#Suppose instead of 2 classes you had 5 classes, each recorded as a separate matrix with the same 2 columns (Midterm, Final). Describe, in plain language (no code required), how you would combine all 5 into a single matrix, and how you would check your final result is correct using dim().
+
+#-You could combine all five class matrices together by passing all of them into a single rbind() function call to stack all student rows vertically. Afterward, you would run dim() on the resulting matrix to verify that the row count equals the combined sum of students across all five classes while the column count remains exactly 2.)
+
+##Conclusion
+#-Matrices and arrays are essential multi-dimensional R data structures, where matrices operate in 2D with identical data types while arrays extend this capability into 3 or more dimensions like stacked layers. In real-world data science projects, functions like cbind() and rbind() are extremely useful for merging auxiliary data columns (such as adding demographic info to an existing table) or appending historical records over time. Mastering these structures ensures robust data organization and efficient quantitative analysis.
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
