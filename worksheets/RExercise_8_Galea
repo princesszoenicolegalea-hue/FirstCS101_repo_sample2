@@ -1,0 +1,117 @@
+---
+title: "RExercise_8"
+author: "Z Galea"
+date: "2026-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+Part A — Creating Data Frames
+Question #1
+Code snippet
+# Create vectors
+scores <- c(78, 92, 85, 92, 67, 88, 74)
+names(scores) <- c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio")
+
+# Sort scores ascending and descending
+sort_asc <- sort(scores)
+sort_desc <- sort(scores, decreasing = TRUE)
+sort_asc
+sort_desc
+
+# Print sorted result and check names
+print(sort_asc)
+
+# Create additional vectors
+subjects <- c("Science", "Math", "English", "Filipino", "PE") 
+incomplete <- c(85, NA, 90, 70, NA, 95)
+
+# Sort subjects alphabetically
+sort(subjects)
+
+# Sort incomplete with default and na.last = TRUE
+sort(incomplete)
+sort(incomplete, na.last = TRUE)
+
+##Question #2:
+#When you sorted scores, did the names stay correctly attached to their original values? Explain why this matters: if you were sorting exam scores to find the top performer, what would go wrong if the names did NOT follow their values?
+
+#-Yes, the names stayed correctly attached because named vectors maintain their element labels during a standard sort(). If names did not follow their values, the data points would become completely decoupled from their identities, meaning we might mistakenly award the top performer's score to a completely different student.)
+
+##Question #3:
+#By default, sort() silently removes NA values instead of showing them or throwing an error. Why might this default behavior be dangerous if you were reporting “the lowest score” in a dataset with missing data, without first checking for NA values?.
+
+#-This behavior is dangerous because it masks missing data issues silently without a warning. If a critical value is missing or recorded as NA, sort() drops it, which could cause the function to return a higher score as the "lowest score" instead of acknowledging that data is missing, leading to flawed reporting and analysis.)
+
+Question #4:
+Code snippet
+# Use order(scores) and compare
+order(scores)
+sort(scores)
+scores[order(scores)]
+
+Question #5:
+Code snippet
+# Create a dataframe
+students <- data.frame(name = c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio"), score = c(78, 92, 85, 92, 67, 88, 74), section = c("A", "B", "A", "B", "A", "B", "A"))
+students
+
+# Reorder ENTIRE dataframe by score
+students[order(students$score), ]
+
+# Reorder in DESCENDING order
+students[order(students$score, decreasing = TRUE), ]
+
+##Question #6:
+#In your own words, explain what order(scores) actually returns (look at the raw numbers it gives you), and why that output is useless on its own unless you use it to index something.
+
+#-order() returns a permutation vector of integers representing the original index positions of the elements if they were sorted. On its own, a sequence of index numbers like 5, 7, 1, 3... just tells you where the sorted items came from in the original list, which is useless unless applied as an index to rearrange actual data objects.)
+
+##Question #7:
+#Explain why sort() alone could NOT have been used to reorder the whole students data frame by score (try to imagine running sort(students) and think about what “sorting a table” would even mean). Why is order() the correct tool whenever you need to keep multiple related columns lined up with each other?
+
+#-sort() is designed to handle flat, one-dimensional vectors and cannot evaluate an entire multi-column data frame as a single entity. order() is the correct tool because it computes row indices based on a single column's values, allowing us to reposition all columns row-by-row synchronously and maintain data integrity.)
+
+Question #8 (Ranking):
+Code snippet
+# Use rank(scores) and print side by side
+rank(scores)
+cbind(scores, rank(scores))
+
+# Create sales data frame and add rank
+sales <- data.frame(employee = c("Rey", "Sam", "Tin", "Uma", "Val"), units_sold = c(120, 145, 145, 98, 130))
+
+sales$rank <- rank(-sales$units_sold) # Negative sign makes top seller rank 1
+sales
+
+# Reorder sales data frame from highest to lowest units sold
+sales[order(sales$units_sold, decreasing = TRUE), ]
+
+##Question #9:
+#In this challenge, you used rank() to determine standing and order() to determine display order. Could you have used order( ) alone to solve the entire problem (both awarding ranks AND reordering the table)? Explain what order( ) is missing that rank( ) provides, using your own words rather than repeating the definitions
+
+#-No, order() alone cannot properly assign ranks because it only provides a strict sequence of unique positions without accounting for ties or statistical standings. rank() explicitly handles ties by calculating relative positions and distributions across data points, which is a structural feature that positional indices cannot provide on their own.)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
