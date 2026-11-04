@@ -1,0 +1,103 @@
+---
+title: "RExercise_9_Galea"
+author: "Z Galea"
+date: "2026-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#Part A — Creating and Importing Data Frames
+##Question #1
+# 1. Create a data frame and save it as shoesize.csv
+Gender <- c("Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Female")
+ShoeSize <- c(10.5, 7.0, 11.0, 6.5, 12.0, 8.0, 10.0, 7.5, 11.5, 8.5)
+Height <- c(175, 160, 180, 155, 185, 165, 172, 158, 182, 168)
+
+shoes <- data.frame(Gender, ShoeSize, Height)
+write.csv(shoes, "shoesize.csv", row.names = FALSE)
+
+# 2. Import the saved csv into the R environment and display the last 5 rows
+shoes <- read.csv("shoesize.csv")
+tail(shoes, 5)
+
+# 3. Describe the data by showing the structures and its content
+str(shoes)
+print(shoes)
+
+# 4. Inspect its dimensions (rows and columns)
+dim(shoes)
+nrow(shoes)
+ncol(shoes)
+
+# 5. Inspect using summary()
+summary(shoes)
+
+# 6. Create a subset by males and females with their corresponding shoe size and height
+male_subset <- subset(shoes, Gender == "Male")
+female_subset <- subset(shoes, Gender == "Female")
+male_subset
+female_subset
+
+# 7. Find the mean of shoe size and height of the respondents
+mean_shoe <- mean(shoes$ShoeSize)
+mean_height <- mean(shoes$Height)
+mean_shoe
+mean_height
+
+##Question #2:
+#Create factors for the gender.
+
+shoes$Gender <- as.factor(shoes$Gender)
+str(shoes$Gender)
+levels(shoes$Gender)
+
+##Question #3:
+#When R Markdown knits a document, it uses the folder containing the .Rmd file as the working directory — NOT whatever folder your R console happened to be in beforehand. Why do you think this design choice makes an .Rmd file’s imports more reliable and reproducible when shared with someone else?
+
+#-This design choice ensures reproducibility because it decouples file paths from an individual user's machine-specific console workspace. Since the working directory automatically resolves to wherever the .Rmd project folder resides, anyone who opens and knits the file will successfully load relative file paths without encountering "file not found" errors.)
+
+##Question #4:
+#Run str(shoes) and note the type R assigned to the Gender column. Is it what you expected? Explain what could go wrong in later analysis if a column you expected to be numeric (like ShoeSize) was accidentally imported as text (character) instead — for example, because of a stray non-numeric value in the original file.
+
+#-str(shoes) confirms that Gender is treated as a character vector initially (or factor if converted). If a numeric column like ShoeSize is accidentally imported as text due to a stray non-numeric character (like a typo or letter), R converts the entire column's data type to character, which prevents mathematical operations like mean(), sum(), or correlation analysis from working and throws an error.)
+
+##Question #5:
+#Why is it good practice to check BOTH head(shoes) and tail(shoes) after importing a file, instead of just head()? What kind of import problem would head() alone fail to catch?
+
+#-Checking both functions is essential because head() only inspects the first few rows, which are usually clean header information or valid data entries. tail() inspects the bottom of the dataset, helping catch truncation issues, trailing blank rows, corrupted footer notes, or malformed data lines that standard imports might misread.)
+
+Question #6:
+
+# 1. Compute correlation between shoe size and height across ALL observations
+cor(shoes$ShoeSize, shoes$Height)
+
+# 2. Return all rows where ShoeSize is greater than or equal to 11, regardless of gender
+subset(shoes, ShoeSize >= 11)
+
+Question #7:
+
+aggregate(cbind(ShoeSize, Height) ~ Gender, data = shoes, mean)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
