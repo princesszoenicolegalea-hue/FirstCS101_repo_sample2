@@ -1,0 +1,114 @@
+---
+title: "RExercises_4_Galea"
+author: "Z Galea"
+date: "2026-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+##Part A — Creating Vectors and List
+##Question #1:
+# 1. Create a vector for the worker's age
+ages <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 
+          35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 
+          50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 
+          35, 24, 33, 41, 53, 40, 18, 44, 38, 41, 
+          48, 27, 39, 19, 30, 61, 54, 58, 26, 18)
+
+# b. How many data points?
+num_data_points <- length(ages)
+num_data_points
+
+# c. Find the minimum and the maximum value of worker's age
+min_age <- min(ages)
+max_age <- max(ages)
+min_age
+max_age
+
+# d. Access the 13th to 18th elements and 33rd to 35th elements
+subset_d <- c(ages, ages)
+subset_d
+
+# e. Access all but the 10th, 20th, 30th and 40th elements
+subset_e <- ages[-c(10, 20, 30, 40)]
+subset_e
+
+# f. Modify the 4th, 14th, 24th, and 44th elements with value = 0
+ages[c(4, 14, 24, 44)] <- 0
+ages
+
+##Question #2:
+data(rivers)
+
+# 1 & 2. Get stats and combine into one named vector
+river_stats <- c(
+  Length = length(rivers),
+  Sum = sum(rivers),
+  Mean = mean(rivers),
+  Median = median(rivers),
+  Var = var(rivers),
+  SD = sd(rivers),
+  Min = min(rivers),
+  Max = max(rivers)
+)
+river_stats
+
+##Question #3:
+# 1. Create vectors according to Forbes ranking data
+celebrity <- c("Oprah Winfrey", "Tiger Woods", "Madonna", "Elton John", "Tom Cruise", "J.K. Rowling")
+power_ranking <- c(1, 2, 3, 4, 5, 18)
+pay <- c(225, 100, 50, 48, 31, 75)
+
+forbes_df <- data.frame(celebrity, power_ranking, pay)
+forbes_df
+
+# 2. Modify the power ranking and pay of J.K. Rowling to 15 and 90 respectively
+forbes_df$power_ranking[forbes_df$celebrity == "J.K. Rowling"] <- 15
+forbes_df$pay[forbes_df$celebrity == "J.K. Rowling"] <- 90
+forbes_df
+
+##Question #4:
+# 1. Create a list of ten vegetables
+veg_list <- list("Carrot", "Broccoli", "Spinach", "Potato", "Tomato", 
+                 "Cabbage", "Lettuce", "Cucumber", "Onion", "Garlic")
+veg_list
+
+# a. Add 2 additional vegetables after the last vegetables in the list
+veg_list <- list("Peas", "Corn")
+veg_list
+
+# b. How many datapoints do you have?
+length(veg_list)
+
+# c. Add 4 additional vegetables after index 5
+veg_list <- c(veg_list[1:5], list("Bean", "Squash", "Celery", "Radish"), veg_list[6:length(veg_list)])
+veg_list
+
+# d. How many datapoints does your vegetable list have?
+length(veg_list)
+
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
