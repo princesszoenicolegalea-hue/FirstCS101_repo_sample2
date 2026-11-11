@@ -1,0 +1,307 @@
+---
+title: "RPractical_Galea"
+author: "Z Galea"
+date: "2026-11-10"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Part A
+```{r}
+#A1
+
+v<- seq(from = 5, to = 50, by = 5)
+length(v)
+sum(v)
+mean(v)
+```
+
+
+```{r}
+#A2
+
+w<- rep(c(1, 2, 3), times = 4)
+
+z<- rep(c(1, 2, 3), times = 4)
+```
+
+
+```{r}
+#A3
+a<- 17
+b<- 5
+
+a/b
+a%%b
+
+2^10
+sqrt(144)
+round(pi, 3)
+
+```
+
+
+```{r}
+#A4
+a<- c(2, 4, 6, 8)
+b<- c(1, 3, 5, 7)
+
+a+b
+a*b
+a>b
+sum(a*b)
+```
+
+
+```{r}
+#A5
+paste("Student-1", "Student-2", "Student-3")
+typeof(42)
+typeof(42L)
+typeof("42")
+typeof(41i)
+typeof("True")
+```
+
+
+##Part B
+```{r}
+#B1
+
+students<- data.frame(
+ id= c(1, 2, 3, 4, 5, 6, 7, 8),
+ name= c("Alice", "Bruno", "Chen", "Dana", "Elif", "Farid", "Grace", "Hiro"),
+ sex= c("F", "M", "M", "F", "F", "M", "F", "M"),
+ section= c("A", "B", "A", "C", "B", "C", "A", "B"),
+ midterm= c(78, 85, 92, 67, 74, 88, 95, 59),
+ final= c(82, 79, 96, 71, 80, 91, 93, 65),
+ attendance= c(95, 88, 100, 72, 90, 85, 98, 60),
+ stringAsFactors = FALSE
+)
+
+```
+
+```{r}
+#B2
+
+str(students)
+dim(students)
+colnames(students)
+summary(students)
+
+```
+
+```{r}
+#B3
+
+students$average <- round((students$midterm + students$final) / 2, 1)
+```
+
+```{r}
+#B4
+students$passed <- (students$average >= 70) & (students$attendance >= 75)
+```
+
+```{r}
+#B5
+ students$standing <- ifelse(
+   students$average >= 90,
+   "Honors",
+   ifelse(students$average >= 75, "Good", "Needs Support")
+ )
+```
+
+```{r}
+#B6
+scores <- c(90, 73, 55, 40)
+classify <- function(score) {
+  if (score >= 85){
+    return("Distinction")
+  }else if (score >= 70){
+    return ("Merit")
+  }else if (score >= 50){
+    return ("Pass")
+  }else{
+    return ("Fail")
+  }
+  }
+  
+```
+
+##Part C
+```{r}
+#C1
+new_students <- data.frame(
+  id= c(9, 10),
+  name= c("Ines", "Jamal"),
+  sex= c("F", "M"),
+  section= c("C", "A"),
+  midterm= c(81, 70),
+  final= c(84, 68),
+  attendance= c(92, 80),
+  stringsAsFactors = FALSE
+)
+
+students$passed <- (students$average >= 70) & (students$attendance >= 75)
+students$standing <- ifelse(
+   students$average >= 90,
+   "Honors",
+   ifelse(students$average >= 75, "Good", "Needs Support")
+ )
+ncol(students)
+ncol(new_students)
+students_all <- rbind(students, new_students)
+students_all
+
+```
+
+```{r}
+#C2
+quiz <- c(8, 7, 10, 6, 7, 9, 10, 5, 8, 6)
+students_all <- cbind(students_all, quiz)
+class(students_all)
+```
+
+```{r}
+#C3
+m <- cbind(midterm = students_all$midterm, final = students_all$final)
+m <- rbind(m, mean = colnMeans(m))
+```
+
+```{r}
+#C4
+
+tryCatch(
+  rbind(students, bad),
+  error = function(e){
+    message("rbind error caught successfully: ", e$message)
+    NULL
+  }
+)
+```
+
+##Part D
+```{r}
+#D1
+print(students_all$name)
+
+print(students_all[["name"]])
+
+print(students_all[, "name"])
+
+```
+
+```{r}
+#D2
+
+print(students_all[2:5, c("name", "midterm", "final")])
+```
+
+```{r}
+#D3
+
+print(students_all[students_all$attendance > 90, ])
+```
+
+```{r}
+#D4
+
+print(
+  subset(
+    students_all,
+    sex == "F" & (section == "A" | section == "C") & final >= 75,
+    select = c(name, section, final)
+  )
+)
+```
+
+```{r}
+#D5
+
+highest_student <- students_all$name[which.max(students_all$average)]
+lowest_student <- students_all$name[which.minb(students_all$average)]
+
+print(paste("highest average:", highest_student))
+print(paste("lowest_student:", lowest_student))
+```
+
+```{r}
+#D6
+sorted_student <- students_all[order(students_all$average, decreasing = TRUE), ]
+print(head(sorted_students_all$average), 3)
+```
+
+##Part E
+
+```{r}
+#E1
+students_all$section <- factor(students_all$section)
+students_all$sex <- factor(students_all$sex)
+
+print(levels(students_all$section))
+print(levels(students_all$sex))
+```
+
+```{r}
+#E2
+print(table(students_alll$sex))
+
+print(Table(students_all$section))
+
+print(table(students_all$sex, students_all$section))
+```
+
+```{r}
+#E3
+
+#print the integer values of the sex factor
+
+print(as.integer(students_all$sex))
+
+#The integer represent the underlying internal integer storage values assigned to each level of the factor based on their alphabetical order.
+```
+
+```{r}
+#E4
+
+students_all$sex_label <- factor(
+  students_all$sex,
+  levels = c("F", "M"),
+  levels = c("Female", "Male")
+)
+levels(students_all$sex_label)
+```
+
+```{r}
+#E5
+
+summary(students_all$sex$sex_label)
+mean(students_all$average[students_all$sex_label == "Female"])
+mean(students_all$average[students_all$sex_label == "Male"])
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
